@@ -361,7 +361,7 @@ Rayfield:Notify({
    Image = 4483362458,
 })
 
-local Tab = Window:CreateTab("Meepcity", 126133429358591) -- Title, Image
+local Tab = Window:CreateTab("Meepcity", 93714834687143) -- Title, Image
 
 local function colorToTable(clr)
     return {tostring(clr.R * 255), tostring(clr.G * 255), tostring(clr.B * 255)}

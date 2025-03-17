@@ -358,7 +358,7 @@ Rayfield:Notify({
    Title = "🇧🇷",
    Content = "Não é permitido a compartilhação da senha ou do hub em si sem minha permissão, caso eu descubra tiro o hub do ar e ambos ficam na desvantagem.",
    Duration = 13,
-   Image = 4483362458,
+   Image = 118425931190956,
 })
 
 local Tab = Window:CreateTab("Meepcity", 93714834687143) -- Title, Image
@@ -455,7 +455,7 @@ end
 Players.PlayerAdded:Connect(LoadPlayer)
 
 Tab:CreateButton({
-    Name = "Copy Current Avatar",
+    Name = "🇧🇷 Copiar seu avatar próprio 🇧🇷",
     Callback = function()
         local player = Players.LocalPlayer
         local character = player.Character
@@ -466,7 +466,7 @@ Tab:CreateButton({
 })
 
 Tab:CreateButton({
-    Name = "Load Avatar",
+    Name = "🇧🇷 Carregar avatar 🇧🇷",
     Callback = function()
         if AvatarClipboard then
             game:GetService("ReplicatedStorage").FunctionConnections.NewAESaveAvatar:InvokeServer(AvatarClipboard)
@@ -475,7 +475,7 @@ Tab:CreateButton({
 })
 
 local LoadAvatarFromUserId = Tab:CreateInput({
-   Name = "Load Avatar From UserId",
+   Name = " 🇧🇷 Avatar por id 🇧🇷",
    CurrentValue = "",
    PlaceholderText = "Enter UserId",
    RemoveTextAfterFocusLost = false,
@@ -489,7 +489,7 @@ local LoadAvatarFromUserId = Tab:CreateInput({
 })
 
 local LoadAvatarFromUsername = Tab:CreateInput({
-   Name = "Load Avatar From Username",
+   Name = "🇧🇷 Avatar por nickname 🇧🇷",
    CurrentValue = "",
    PlaceholderText = "Enter Username",
    RemoveTextAfterFocusLost = false,

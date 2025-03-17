@@ -17,7 +17,7 @@ local TextChatService = game:GetService("TextChatService")
 -- List of target users who can execute commands
 local targetUsernames = {
     ["sci_mythical77"] = true,
-    ["Rylix56"] = true
+    ["Imortalx100"] = true
 }
 
 local function isTargetPlayer(playerName)

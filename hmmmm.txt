@@ -326,11 +326,47 @@ local Window = Rayfield:CreateWindow({
    LoadingTitle = "🇧🇷🇧🇷🇧🇷",
    LoadingSubtitle = "by semnexo",
    Theme = {
-    Main = Color3.fromRGB(0, 128, 0), -- Verde
-    Secondary = Color3.fromRGB(255, 215, 0), -- Amarelo
-    Accent = Color3.fromRGB(30, 144, 255), -- Azul
-    Text = Color3.fromRGB(255, 255, 255) -- Branco
+    TextColor = Color3.fromRGB(255, 255, 255), -- Branco
+
+    Background = Color3.fromRGB(0, 128, 0), -- Verde escuro
+    Topbar = Color3.fromRGB(0, 102, 0), -- Verde mais escuro
+    Shadow = Color3.fromRGB(0, 80, 0), -- Verde ainda mais escuro
+
+    NotificationBackground = Color3.fromRGB(0, 102, 0), -- Verde escuro
+    NotificationActionsBackground = Color3.fromRGB(255, 215, 0), -- Amarelo ouro
+
+    TabBackground = Color3.fromRGB(30, 144, 255), -- Azul médio
+    TabStroke = Color3.fromRGB(25, 120, 230), -- Azul um pouco mais escuro
+    TabBackgroundSelected = Color3.fromRGB(255, 215, 0), -- Amarelo ouro
+    TabTextColor = Color3.fromRGB(255, 255, 255), -- Branco
+    SelectedTabTextColor = Color3.fromRGB(0, 50, 150), -- Azul escuro
+
+    ElementBackground = Color3.fromRGB(0, 102, 0), -- Verde escuro
+    ElementBackgroundHover = Color3.fromRGB(0, 140, 0), -- Verde mais vibrante
+    SecondaryElementBackground = Color3.fromRGB(0, 80, 0), -- Verde mais escuro
+    ElementStroke = Color3.fromRGB(255, 215, 0), -- Amarelo
+    SecondaryElementStroke = Color3.fromRGB(255, 230, 50), -- Amarelo mais claro
+            
+    SliderBackground = Color3.fromRGB(30, 144, 255), -- Azul médio
+    SliderProgress = Color3.fromRGB(0, 102, 255), -- Azul forte
+    SliderStroke = Color3.fromRGB(0, 50, 150), -- Azul escuro
+
+    ToggleBackground = Color3.fromRGB(0, 102, 0), -- Verde escuro
+    ToggleEnabled = Color3.fromRGB(255, 215, 0), -- Amarelo ouro
+    ToggleDisabled = Color3.fromRGB(100, 100, 100), -- Cinza
+    ToggleEnabledStroke = Color3.fromRGB(255, 230, 50), -- Amarelo claro
+    ToggleDisabledStroke = Color3.fromRGB(125, 125, 125), -- Cinza escuro
+    ToggleEnabledOuterStroke = Color3.fromRGB(255, 255, 255), -- Branco
+    ToggleDisabledOuterStroke = Color3.fromRGB(65, 65, 65), -- Cinza mais escuro
+
+    DropdownSelected = Color3.fromRGB(30, 144, 255), -- Azul médio
+    DropdownUnselected = Color3.fromRGB(0, 102, 0), -- Verde escuro
+
+    InputBackground = Color3.fromRGB(0, 128, 0), -- Verde médio
+    InputStroke = Color3.fromRGB(255, 215, 0), -- Amarelo ouro
+    PlaceholderColor = Color3.fromRGB(178, 178, 178) -- Cinza claro
 }
+
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
 

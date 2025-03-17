@@ -304,7 +304,7 @@ local executorName = identifyexecutor()
 local gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
 print("Game Name: " .. gameName)
 
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/pauloplinioloko/Vvv/refs/heads/main/source.lua.txt'))()
 
 local openingSound = Instance.new("Sound")
 openingSound.SoundId = "rbxassetid://6958727243" 

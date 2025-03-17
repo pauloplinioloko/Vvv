@@ -291,11 +291,11 @@ end)
 
 
 game.StarterGui:SetCore("SendNotification", {
-    Title = "zynlope",
-    Text = "loading goodies..",
+    Title = "Espera caralho",
+    Text = "calegando🖕",
     Icon = playerHeadIcon,
     Duration = 3,
-    Button1 = "okay buddy"
+    Button1 = "Ok pau no cu"
 })
 
 local MarketplaceService = game:GetService("MarketplaceService")

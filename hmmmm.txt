@@ -325,7 +325,7 @@ local Window = Rayfield:CreateWindow({
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
    LoadingTitle = "🇧🇷🇧🇷🇧🇷",
    LoadingSubtitle = "by semnexo",
-   Theme = "Green", -- Check https://docs.sirius.menu/rayfield/con
+   Theme = "AmberGlow", -- Check https://docs.sirius.menu/rayfield/con
    
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
@@ -357,7 +357,7 @@ local Window = Rayfield:CreateWindow({
 Rayfield:Notify({
    Title = "🇧🇷",
    Content = "Não é permitido a compartilhação da senha ou do hub em si sem minha permissão, caso eu descubra tiro o hub do ar e ambos ficam na desvantagem.",
-   Duration = 13,
+   Duration = 12,
    Image = 118425931190956,
 })
 

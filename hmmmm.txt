@@ -325,7 +325,7 @@ local Window = Rayfield:CreateWindow({
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
    LoadingTitle = "🇧🇷🇧🇷🇧🇷",
    LoadingSubtitle = "by semnexo",
-   Theme = "AmberGlow", -- Check https://docs.sirius.menu/rayfield/con
+   Theme = "DarkBlue", -- Check https://docs.sirius.menu/rayfield/con
    
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface

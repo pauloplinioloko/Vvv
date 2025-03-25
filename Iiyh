@@ -474,6 +474,15 @@ Tab:CreateButton({
     end
 })
 
+Tab:CreateButton({
+    Name = "🇧🇷 Salvar 🇧🇷",
+    Callback = function()
+        if AvatarClipboard then
+            game:GetService("ReplicatedStorage").FunctionConnections.NewAESaveOutfit:InvokeServer(AvatarClipboard)
+        end
+    end
+})
+
 local LoadAvatarFromUserId = Tab:CreateInput({
    Name = " 🇧🇷 Avatar por id 🇧🇷",
    CurrentValue = "",

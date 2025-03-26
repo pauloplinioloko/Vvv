@@ -510,3 +510,128 @@ local LoadAvatarFromUsername = Tab:CreateInput({
       end
    end,
 })
+
+local Tab = Window:CreateTab("Balões", ) -- Title, Image
+
+local Section = Tab:CreateSection("Spam de Balões")
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Selecione o Balão",  -- Balloon color dropdown
+   Options = {"Vermelho", "Azul", "Verde", "Roxo", "Branco", "Balão de coração"},  -- Color options
+   CurrentOption = {"Vermelho"},  -- Default option
+   MultipleOptions = false,  -- Only one option can be selected
+   Flag = "BalloonColor",  -- Flag to identify the configuration
+   Callback = function(Options)
+      -- Update the selected balloon color
+      selectedBalloonColor = Options[1]
+      print("Selected balloon color: " .. selectedBalloonColor)
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = Começar Spam do Selecionado",  -- Start balloon spawning toggle
+   CurrentValue = false,  -- Default value (false = not spawning)
+   Flag = "spawnBallons",  -- Flag to identify the configuration
+   Callback = function(Value)
+      -- Update the spawnBalloons state
+      spawnBalloons = Value
+      print("Spawnando balões: " .. tostring(spawnBalloons))
+
+      if spawnBalloons then
+         -- Start balloon spawning in a separate thread
+         task.spawn(function()
+            while spawnBalloons do
+               -- Map the selected balloon color to the balloon IDs
+               local balloonID
+               if selectedBalloonColor == "Vermelho" then
+                  balloonID = 1311
+               elseif selectedBalloonColor == "Azul" then
+                  balloonID = 1312
+               elseif selectedBalloonColor == "Verde" then
+                  balloonID = 1313
+               elseif selectedBalloonColor == "Roxo" then
+                  balloonID = 1314
+               elseif selectedBalloonColor == "Branco" then
+                  balloonID = 1315
+               elseif selectedBalloonColor == "Coração" then
+                  balloonID = 1039  -- Heart balloon ID
+               end
+
+               -- Spawn the selected balloon type
+               local args = {
+                  [1] = 201,
+                  [2] = balloonID,
+                  [3] = {}
+               }
+
+               local args2 = {
+                  [1] = 202
+               }
+
+               game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+               game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+               task.wait(0)  -- Wait before spawning the next balloon
+            end
+         end)
+      end
+   end,
+})
+
+local spawnAllBalloons = false -- To control the toggle
+
+local Toggle = Tab:CreateToggle({
+   Name = "Spawnar todos os balões",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+spawnAllBalloons = Value -- Update the toggle state
+		print("Spawnando todos os balões: " .. tostring(spawnAllBalloons))
+
+		if spawnAllBalloons then
+			-- Start spawning all balloons in a separate thread
+			task.spawn(function()
+				while spawnAllBalloons do
+					-- Spawn balloon with ID 1311
+					local args = {
+						[1] = 201,
+						[2] = 1311,
+						[3] = {}
+					}
+					local args2 = {
+						[1] = 202
+					}
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+					-- Spawn balloon with ID 1312
+					args[2] = 1312
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+					-- Spawn balloon with ID 1313
+					args[2] = 1313
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+					-- Spawn balloon with ID 1314
+					args[2] = 1314
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+					-- Spawn balloon with ID 1315
+					args[2] = 1315
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+					-- Spawn balloon with ID 1039 (new addition)
+					args[2] = 1039
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args))
+					game:GetService("ReplicatedStorage").Connection:InvokeServer(unpack(args2))
+
+					task.wait(0) -- Wait before spawning the next set of balloons
+				end
+			end)
+		end
+   end,
+})

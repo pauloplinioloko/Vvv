@@ -149,7 +149,7 @@ end)
 local TitleLabel = Instance.new("TextLabel", Frame)
 TitleLabel.Size = UDim2.new(1, 0, 0, 25)
 TitleLabel.BackgroundTransparency = 1
-TitleLabel.Text = "by von & semnexo"
+TitleLabel.Text = "by Mn_von & semnexo"
 TitleLabel.Font = Enum.Font.GothamBold
 TitleLabel.TextSize = 16
 TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 0)

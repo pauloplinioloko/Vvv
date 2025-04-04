@@ -1,0 +1,286 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+
+-- ██████████████████████████████
+-- ███      INTRO WIZARDS      ███
+-- ██████████████████████████████
+
+local IntroGui = Instance.new("ScreenGui", game.CoreGui)
+IntroGui.Name = "IntroGui"
+
+local WizardsLabel = Instance.new("TextLabel", IntroGui)
+WizardsLabel.Size = UDim2.new(1, 0, 1, 0)
+WizardsLabel.BackgroundTransparency = 1
+WizardsLabel.Text = "Wizards"
+WizardsLabel.Font = Enum.Font.GothamBlack
+WizardsLabel.TextSize = 100
+WizardsLabel.TextColor3 = Color3.fromRGB(0, 170, 255)
+WizardsLabel.TextStrokeColor3 = Color3.fromRGB(10, 10, 30)
+WizardsLabel.TextStrokeTransparency = 0.2
+WizardsLabel.TextScaled = true
+
+-- Adicionando Som
+local Sound = Instance.new("Sound", WizardsLabel)
+Sound.SoundId = "rbxassetid://6284871199"
+Sound.Volume = 2
+Sound.PlaybackSpeed = 1
+
+-- Fade-in da intro
+WizardsLabel.TextTransparency = 1
+task.wait(1)  -- Espera 1 segundo antes de tocar o som
+Sound:Play()
+
+for i = 1, 100 do
+    WizardsLabel.TextTransparency = WizardsLabel.TextTransparency - 0.01
+    task.wait(0.04)
+end
+
+task.wait(2) -- Aguarda 3 segundos antes de sumir
+
+for i = 1, 100 do
+    WizardsLabel.TextTransparency = WizardsLabel.TextTransparency + 0.01
+    task.wait(0.04)
+end
+
+IntroGui:Destroy() -- Remove a intro após a animação
+
+-- ██████████████████████████████
+-- ███        HUB WIZARDS      ███
+-- ██████████████████████████████
+
+-- Função auxiliar para converter cor em tabela
+local function colorToTable(c)
+	return {c.R, c.G, c.B}
+end
+
+-- Função para extrair a aparência do HumanoidDescription
+local function ExtractData(humdes)
+	local ava = {}
+
+	for _, v in pairs({"WidthScale", "HeightScale", "DepthScale", "BodyTypeScale", "ProportionScale", "HeadScale"}) do
+		ava[v] = humdes[v]
+	end
+
+	for _, v in pairs({"Face", "Head", "LeftArm", "RightArm", "LeftLeg", "RightLeg", "Torso"}) do
+		ava[v] = humdes[v]
+	end
+
+	for _, v in pairs({"HeadColor", "LeftArmColor", "RightArmColor", "LeftLegColor", "RightLegColor", "TorsoColor"}) do
+		ava[v] = colorToTable(humdes[v])
+	end
+
+	for _, v in pairs({"GraphicTShirt", "Shirt", "Pants"}) do
+		ava[v] = humdes[v]
+	end
+
+	for _, v in pairs({"IdleAnimation", "RunAnimation", "JumpAnimation", "SwimAnimation", "WalkAnimation", "ClimbAnimation", "FallAnimation"}) do
+		ava[v] = humdes[v]
+	end
+
+	for _, v in pairs({"Hat", "Hair", "Back", "Face", "Front", "Neck", "Shoulders", "Waist"}) do
+		ava[v .. "Accessory"] = humdes[v .. "Accessory"]
+	end
+
+	local layered = humdes:GetAccessories(false)
+	for i, accessory in pairs(layered) do
+		if accessory.AccessoryType and typeof(accessory.AccessoryType) == "EnumItem" then
+			accessory.AccessoryType = accessory.AccessoryType.Name
+		end
+		accessory.Order = i
+	end
+	ava.AccessoryBlob = layered
+	ava.Emotes = humdes:GetEmotes()
+
+	return ava
+end
+
+-- Criação da Interface
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "SkinHub"
+
+-- Frame principal do Hub
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 300, 0, 400)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -200)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
+Frame.Visible = true
+Frame.Active = true
+Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
+
+-- Arrastamento do Hub ao clicar em qualquer parte
+local dragging = false
+local dragInput, dragStart, startPos
+
+local function updateDrag(input)
+	local delta = input.Position - dragStart
+	Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+Frame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = Frame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+Frame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		updateDrag(input)
+	end
+end)
+
+-- TÍTULO
+local TitleLabel = Instance.new("TextLabel", Frame)
+TitleLabel.Size = UDim2.new(1, 0, 0, 25)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "by von & semnexo"
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.TextSize = 16
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+TitleLabel.TextStrokeTransparency = 0.7
+TitleLabel.LayoutOrder = -999
+
+task.spawn(function()
+	while true do
+		for i = 0, 1, 0.01 do
+			TitleLabel.TextColor3 = Color3.fromHSV(i, 1, 1)
+			task.wait(0.03)
+		end
+	end
+end)
+
+-- ScrollingFrame para skins
+local Scroll = Instance.new("ScrollingFrame", Frame)
+Scroll.Size = UDim2.new(1, 0, 1, -60)
+Scroll.Position = UDim2.new(0, 0, 0, 40)
+Scroll.BackgroundTransparency = 1
+Scroll.BorderSizePixel = 0
+Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+Scroll.ScrollBarThickness = 6
+
+local layout = Instance.new("UIListLayout", Scroll)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 5)
+
+layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+	Scroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
+end)
+
+-- Botão para salvar skin
+local SaveButton = Instance.new("TextButton", Frame)
+SaveButton.Text = "Salvar Skin Atual"
+SaveButton.Size = UDim2.new(1, 0, 0, 30)
+SaveButton.Position = UDim2.new(0, 0, 1, -35)
+SaveButton.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
+SaveButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+SaveButton.Font = Enum.Font.GothamBold
+SaveButton.TextSize = 14
+Instance.new("UICorner", SaveButton).CornerRadius = UDim.new(0, 8)
+
+local skinCount = 0
+
+SaveButton.MouseButton1Click:Connect(function()
+	local character = player.Character
+	if character and character:FindFirstChild("Humanoid") and character.Humanoid:FindFirstChild("HumanoidDescription") then
+		local data = ExtractData(character.Humanoid.HumanoidDescription)
+		skinCount += 1
+
+		local container = Instance.new("Frame", Scroll)
+		container.Size = UDim2.new(1, 0, 0, 30)
+		container.BackgroundTransparency = 1
+		container.LayoutOrder = skinCount
+
+		local skinButton = Instance.new("TextButton", container)
+		skinButton.Text = "Skin " .. skinCount
+		skinButton.Size = UDim2.new(1, -70, 1, 0)
+		skinButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+		skinButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		skinButton.Font = Enum.Font.Gotham
+		skinButton.TextSize = 13
+		skinButton.TextXAlignment = Enum.TextXAlignment.Left
+		Instance.new("UICorner", skinButton).CornerRadius = UDim.new(0, 6)
+
+		-- Botão para editar nome
+		local edit = Instance.new("TextButton", container)
+		edit.Text = "✏️"
+		edit.Size = UDim2.new(0, 30, 1, 0)
+		edit.Position = UDim2.new(1, -65, 0, 0)
+		edit.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+		edit.TextColor3 = Color3.fromRGB(255, 255, 255)
+		edit.Font = Enum.Font.GothamBold
+		edit.TextSize = 14
+		Instance.new("UICorner", edit).CornerRadius = UDim.new(1, 0)
+
+		-- Botão para deletar
+		local delete = Instance.new("TextButton", container)
+		delete.Text = "X"
+		delete.Size = UDim2.new(0, 30, 1, 0)
+		delete.Position = UDim2.new(1, -30, 0, 0)
+		delete.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+		delete.TextColor3 = Color3.fromRGB(255, 255, 255)
+		delete.Font = Enum.Font.GothamBold
+		delete.TextSize = 14
+		Instance.new("UICorner", delete).CornerRadius = UDim.new(1, 0)
+
+		delete.MouseButton1Click:Connect(function()
+			container:Destroy()
+		end)
+
+		edit.MouseButton1Click:Connect(function()
+			local textBox = Instance.new("TextBox", container)
+			textBox.Size = skinButton.Size
+			textBox.Position = skinButton.Position
+			textBox.Text = skinButton.Text
+			textBox.Font = Enum.Font.Gotham
+			textBox.TextSize = 13
+			textBox.TextColor3 = Color3.new(1, 1, 1)
+			textBox.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+			Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 6)
+			skinButton.Visible = false
+
+			textBox.FocusLost:Connect(function()
+				skinButton.Text = textBox.Text
+				skinButton.Visible = true
+				textBox:Destroy()
+			end)
+			textBox:CaptureFocus()
+		end)
+
+		skinButton.MouseButton1Click:Connect(function()
+			ReplicatedStorage.FunctionConnections.NewAESaveAvatar:InvokeServer(data)
+		end)
+	end
+end)
+
+-- Botão flutuante para mostrar/ocultar o Hub
+local toggleButton = Instance.new("TextButton", ScreenGui)
+toggleButton.Size = UDim2.new(0, 100, 0, 30)
+toggleButton.Position = UDim2.new(0, 10, 0, 70)
+toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleButton.Text = "Fechar Hub"
+toggleButton.Font = Enum.Font.GothamBold
+toggleButton.TextSize = 14
+toggleButton.ZIndex = 10
+Instance.new("UICorner", toggleButton).CornerRadius = UDim.new(0, 8)
+
+toggleButton.MouseButton1Click:Connect(function()
+	Frame.Visible = not Frame.Visible
+	toggleButton.Text = Frame.Visible and "Fechar Hub" or "Abrir Hub"
+end)
